@@ -27,11 +27,11 @@ do
         "hammer host update --id $I --build yes"
 
     _STATUS=$(ssh -l ${PUSH_USER} -i ${RSA_ID} ${SATELLITE} "hammer host status --id $I" | grep Power | cut -f2 -d: | tr -d ' ')
-    if [[ ${_STATUS} == 'running' ]]
+    if [[ ${_STATUS} == 'poweredOn' ]]
     then
         ssh -l ${PUSH_USER} -i ${RSA_ID} ${SATELLITE} \
             "hammer host reboot --id $I"
-    elif [[ ${_STATUS} == 'shutoff' ]]
+    elif [[ ${_STATUS} == 'poweredOff' ]]
     then
         ssh -l ${PUSH_USER} -i ${RSA_ID} ${SATELLITE} \
             "hammer host start --id $I"
